@@ -1,0 +1,255 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "RAT G700 (legitimate build/configuration tool) — frontend UI, auth gating, CRUD, and JSON import/export",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add first-run setup UX that defines what “RAT G700” means and what a “build” represents; persist metadata and use it to label UI with explicit non-malware framing.",
+      "acceptanceCriteria": [
+        "On first load (no existing metadata), the app shows a setup screen asking for: app meaning/description, what a build represents, and preferred units/currency (optional).",
+        "The setup answers are persisted in the Motoko canister and reused to label the UI (e.g., page title/help text).",
+        "No features that enable covert device control, remote shells, keylogging, credential capture, or persistence are implemented."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useMetadata.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for loading/saving app metadata via backend getMetadata/setMetadata, including loading/error states and cache invalidation."
+        },
+        {
+          "path": "frontend/src/pages/FirstRunSetupPage.tsx",
+          "operation": "create",
+          "description": "Implement first-run setup page that collects: (1) what “RAT G700” stands for (app meaning/description), (2) what a “build” means, and (3) optional units/currency (store optional preferences locally on the frontend). Include an explicit non-malware statement and ensure all text is in English. Use shadcn-ui form primitives (e.g., Card, Input, Textarea, Button, Alert) to keep UX consistent. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AppShell.tsx",
+          "operation": "create",
+          "description": "Create a shell/layout component that consumes stored metadata to label the app (title text, contextual help snippets) and prominently frames the app as a legitimate build/configuration tool (no remote access functionality). Use the generated logo asset at frontend/public/assets/generated/rat-g700-logo.dim_512x512.png in the header. Use shadcn-ui layout primitives (e.g., NavigationMenu, Separator) as appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Update the HTML <title> to a metadata-aware baseline title (static fallback is fine; dynamic labeling will be handled in React). Ensure the baseline title is in English and consistent with the app's non-malware positioning."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Wire first-run setup gating: if authenticated and metadata is missing, route/render FirstRunSetupPage before allowing access to Builds/Help. Ensure the setup path is reachable and not an orphan view."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build the Builds management UI (list/search/create/edit/delete) and Build detail UI for item management with loading/error states.",
+      "acceptanceCriteria": [
+        "A Builds page shows all builds with a search box and a button to create a new build.",
+        "Selecting a build opens a detail view where Items can be added, edited inline or via modal, and removed with confirmation.",
+        "UI shows loading and error states for all backend interactions.",
+        "All user-facing text is in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useBuilds.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for listing builds (getBuilds) and mutations for create/update/delete builds with cache invalidation and user-friendly error handling."
+        },
+        {
+          "path": "frontend/src/hooks/useBuild.ts",
+          "operation": "create",
+          "description": "Create React Query hook for fetching a single build (getBuild) and for keeping detail view data consistent after mutations (refetch/invalidate as needed)."
+        },
+        {
+          "path": "frontend/src/hooks/useItems.ts",
+          "operation": "create",
+          "description": "Create React Query hooks/mutations for items within a build (getItems/addItem/updateItem/removeItem), including optimistic UX where safe and proper invalidation."
+        },
+        {
+          "path": "frontend/src/pages/BuildsPage.tsx",
+          "operation": "create",
+          "description": "Implement Builds list page with search/filter by name, create build action, and list rendering (table/list) with empty/loading/error states. Use shadcn-ui components (Input, Button, Table, Skeleton, Alert) to standardize UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/BuildDetailPage.tsx",
+          "operation": "create",
+          "description": "Implement build detail view showing build fields and items list. Provide add/edit item (inline or modal) and remove item (with confirmation). Include clear loading/error states and disable actions while saving. Use shadcn-ui components (Dialog, Form inputs, Table, AlertDialog, Toast/Alert) as applicable. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/BuildEditorDialog.tsx",
+          "operation": "create",
+          "description": "Create a reusable create/edit build dialog used from BuildsPage and/or BuildDetailPage. Use shadcn-ui Dialog and form controls. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ItemEditorDialog.tsx",
+          "operation": "create",
+          "description": "Create a reusable add/edit item dialog supporting name/label, quantity, optional cost and notes, with basic client-side validation. Use shadcn-ui Dialog and form controls. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ConfirmDestructiveDialog.tsx",
+          "operation": "create",
+          "description": "Create a small reusable confirmation dialog for destructive actions (delete build, remove item). Use shadcn-ui AlertDialog. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register and wire navigation/routes for BuildsPage and BuildDetailPage (including parameterized build id). Ensure no orphan pages and that navigation from list→detail works."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add stable JSON export/import for a Build (with schemaVersion) with validation and safe error display.",
+      "acceptanceCriteria": [
+        "From a Build detail view, user can click Export and download a .json file containing the Build and its Items.",
+        "User can import a .json file; if valid, a new Build is created in the backend; if invalid, UI shows specific validation errors.",
+        "Import/export format is stable and includes a version field (e.g., schemaVersion)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/buildImportExport.ts",
+          "operation": "create",
+          "description": "Implement import/export helpers: create stable export object with schemaVersion, serialize to JSON, trigger download; parse and validate imported JSON with explicit error messages; provide mapping to backend createBuild + addItem calls."
+        },
+        {
+          "path": "frontend/src/components/BuildImportExportPanel.tsx",
+          "operation": "create",
+          "description": "Add an import/export panel for the Build detail view: Export button (downloads JSON) and Import control (file input) that validates and surfaces specific errors without crashing. Use shadcn-ui components (Button, Input, Alert, Progress) to provide clear UX. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/BuildDetailPage.tsx",
+          "operation": "modify",
+          "description": "Wire BuildImportExportPanel into the Build detail view, passing the currently loaded build/items and the necessary React Query mutations (createBuild/addItem) to create a new build on import."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Require Internet Identity sign-in, set up per-principal UX (including profile name), and ensure cached data is cleared on logout.",
+      "acceptanceCriteria": [
+        "Unauthenticated users are prompted to sign in with Internet Identity to use the app.",
+        "After sign-in, Builds are stored and queried under the caller principal.",
+        "Signing out and signing in as another identity shows a different (isolated) dataset."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useUserProfile.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for getCallerUserProfile/saveCallerUserProfile and getCallerUserRole/isCallerAdmin as needed for UI labeling and gating; ensure retry behavior doesn’t cause modal flash. Use the authorization component guidance. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "create",
+          "description": "Implement a login/logout button using useInternetIdentity; on logout, clear React Query cache to remove prior user's data (per authorization component guidance). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupDialog.tsx",
+          "operation": "create",
+          "description": "Prompt for a human-readable user name the first time a principal logs in (when getCallerUserProfile returns null) and save it. Avoid showing principal id in the UI. Use shadcn-ui Dialog/form controls. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AuthGate.tsx",
+          "operation": "create",
+          "description": "Create an authentication gate that blocks access to application data when unauthenticated, showing a clear sign-in prompt and LoginButton. Handle authorization failures from backend traps gracefully in the UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap app routes with AuthGate so unauthenticated users cannot access Builds/Help; ensure profile setup dialog is triggered post-login without flashing. Keep routes intact and avoid broken navigation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a cohesive, accessible non-blue/purple visual theme across the app.",
+      "acceptanceCriteria": [
+        "Theme is consistently applied across navigation, forms, tables/lists, and dialogs.",
+        "Color palette avoids blue/purple as primary brand colors.",
+        "UI remains accessible (readable contrast, clear focus states)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Define global theme tokens/CSS variables for Tailwind + shadcn-ui with a distinctive non-blue/purple palette (e.g., graphite + green/amber accents), typography defaults, and clear focus styles. Ensure accessible contrast."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust/extend theme configuration only as needed to support the chosen palette/typography while remaining compatible with the existing shadcn-ui token approach."
+        },
+        {
+          "path": "frontend/src/components/AppShell.tsx",
+          "operation": "modify",
+          "description": "Apply the theme consistently within layout/navigation (spacing, surfaces, typography) using Tailwind utilities and shadcn-ui components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/BuildsPage.tsx",
+          "operation": "modify",
+          "description": "Ensure list/table/forms reflect the theme (consistent surfaces, typography, focus states) using shadcn-ui components and Tailwind utilities. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/BuildDetailPage.tsx",
+          "operation": "modify",
+          "description": "Ensure detail view, dialogs, and confirmations match the theme and remain accessible (focus, contrast, disabled states). Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add a Help/About page that uses stored metadata and explicitly states the app is not a remote-access tool.",
+      "acceptanceCriteria": [
+        "Help/About page displays the user-provided app description from setup.",
+        "Help/About includes an explicit non-malware statement.",
+        "Page is reachable from main navigation."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HelpAboutPage.tsx",
+          "operation": "create",
+          "description": "Implement Help/About page that pulls metadata via useMetadata and renders: the app description, what a build represents, and a clear statement that the app is not a remote-access tool and does not control devices. Use shadcn-ui typography (e.g., Card, Separator) for readability. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AppShell.tsx",
+          "operation": "modify",
+          "description": "Add Help/About link to main navigation and ensure it’s reachable from anywhere in the app. Use shadcn-ui navigation components if available. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register route for HelpAboutPage and ensure it is protected by AuthGate (per requirement that unauthenticated users are prompted to sign in)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Ensure the frontend is runnable, wired to the canister via React Query for all data operations, and includes developer docs for local run/deploy.",
+      "acceptanceCriteria": [
+        "Frontend uses React Query for all canister data operations (queries + mutations) with cache invalidation.",
+        "A README (or equivalent) exists with steps to run locally (dfx start/deploy) and access the frontend.",
+        "App builds and runs without placeholder broken links or missing routes."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Harden QueryClient configuration for app-wide behavior (sensible retry defaults, error boundaries if used) and ensure providers are ordered correctly for auth + React Query usage."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure all app navigation/routes are wired (Builds list, Build detail, setup gating, Help/About) with no missing routes or dead links; ensure all data interactions go through React Query hooks."
+        },
+        {
+          "path": "frontend/README.md",
+          "operation": "create",
+          "description": "Add basic developer documentation for running locally and deploying (dfx start/deploy, accessing the frontend), plus a note about Internet Identity requirement and the app’s non-malware purpose."
+        },
+        {
+          "path": "frontend/public/assets/generated/rat-g700-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated minimalist monochrome logo asset and wire it into the UI via AppShell. Ensure the exact filename and path are used."
+        }
+      ]
+    }
+  ]
+}

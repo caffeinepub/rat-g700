@@ -1,0 +1,159 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-clarify-and-enforce-that-the-application-named-rat-g700-is-a-legitimate-build-configuration-tool-and-does-not-implement-any-remote-access-trojan-rat-spyware-credential-theft-persistence-covert-control-or-other-malware-behavior-in-the-ui-present-a-first-run-configuration-screen-that-asks-the-user-to-describe-what-rat-g700-stands-for-and-what-a-build-means-e-g-parts-list-steps-firmware-config-and-store-these-answers-as-app-metadata-used-only-for-labeling-and-help-text",
+      "featureTitle": "Clarify and enforce that the application named \"RAT G700\" is a legitimate build/configuration tool and does not implement any remote access trojan (RAT), spyware, credential theft, persistence, covert control, or other malware behavior. In the UI, present a first-run configuration screen that asks the user to describe what \"RAT G700\" stands for and what a \"build\" means (e.g., parts list, steps, firmware config), and store these answers as app metadata used only for labeling and help text.",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppShell.tsx",
+        "frontend/src/pages/FirstRunSetupPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-frontend-ui-to-manage-builds-list-view-search-filter-by-name-create-build-edit-build-delete-build-with-confirmation-and-a-build-detail-view-to-manage-its-items-add-edit-remove-quantities",
+      "featureTitle": "Create a frontend UI to manage Builds: list view (search/filter by name), create build, edit build, delete build (with confirmation), and a build detail view to manage its Items (add/edit/remove, quantities).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/BuildEditorDialog.tsx",
+        "frontend/src/components/ConfirmDestructiveDialog.tsx",
+        "frontend/src/components/ItemEditorDialog.tsx",
+        "frontend/src/pages/BuildDetailPage.tsx",
+        "frontend/src/pages/BuildsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-export-import-utilities-for-builds-allow-exporting-a-build-to-a-downloadable-json-file-and-importing-a-json-file-to-create-a-new-build-validate-imported-json-and-show-validation-errors-without-crashing",
+      "featureTitle": "Add export/import utilities for Builds: allow exporting a Build to a downloadable JSON file and importing a JSON file to create a new Build. Validate imported JSON and show validation errors without crashing.",
+      "files": [
+        "frontend/src/components/BuildImportExportPanel.tsx",
+        "frontend/src/pages/BuildDetailPage.tsx",
+        "frontend/src/utils/buildImportExport.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-integrate-internet-identity-sign-in-and-scope-data-per-authenticated-principal-so-each-user-only-sees-their-own-builds",
+      "featureTitle": "Integrate Internet Identity sign-in and scope data per authenticated principal so each user only sees their own Builds.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AuthGate.tsx",
+        "frontend/src/components/LoginButton.tsx",
+        "frontend/src/components/ProfileSetupDialog.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-distinctive-visual-theme-for-the-app-not-blue-purple-choose-a-consistent-palette-typography-and-layout-style-appropriate-for-a-build-configuration-tool-and-apply-it-across-pages-and-components",
+      "featureTitle": "Apply a coherent, distinctive visual theme for the app (not blue/purple): choose a consistent palette, typography, and layout style appropriate for a build/configuration tool, and apply it across pages and components.",
+      "files": [
+        "frontend/src/components/AppShell.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/BuildDetailPage.tsx",
+        "frontend/src/pages/BuildsPage.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-simple-in-app-help-about-page-that-explains-what-the-app-does-based-on-the-stored-metadata-from-setup-and-includes-a-clear-statement-that-the-app-is-not-a-remote-access-tool-and-does-not-control-devices",
+      "featureTitle": "Add a simple in-app Help/About page that explains what the app does based on the stored metadata from setup, and includes a clear statement that the app is not a remote-access tool and does not control devices.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppShell.tsx",
+        "frontend/src/pages/HelpAboutPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-a-complete-runnable-full-stack-codebase-frontend-and-motoko-backend-wired-together-with-react-query-for-data-fetching-mutations-and-basic-developer-documentation-on-how-to-run-locally-and-deploy-on-the-internet-computer",
+      "featureTitle": "Provide a complete, runnable full-stack codebase: frontend and Motoko backend wired together with React Query for data fetching/mutations, and basic developer documentation on how to run locally and deploy on the Internet Computer.",
+      "files": [
+        "frontend/README.md",
+        "frontend/src/App.tsx",
+        "frontend/src/main.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

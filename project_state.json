@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a tool/application referred to as \"rat g700\" (rat type build tool), delivering full source code.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimalist monochrome logo combining a gear and a rat silhouette (rat-g700-logo.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-clarify-and-enforce-that-the-application-named-rat-g700-is-a-legitimate-build-configuration-tool-and-does-not-implement-any-remote-access-trojan-rat-spyware-credential-theft-persistence-covert-control-or-other-malware-behavior-in-the-ui-present-a-first-run-configuration-screen-that-asks-the-user-to-describe-what-rat-g700-stands-for-and-what-a-build-means-e-g-parts-list-steps-firmware-config-and-store-these-answers-as-app-metadata-used-only-for-labeling-and-help-text",
+      "title": "Clarify and enforce that the application named \"RAT G700\" is a legitimate build/configuration tool and does not implement any remote access trojan (RAT), spyware, credential theft, persistence, covert control, or other malware behavior. In the UI, present a first-run configuration screen that asks the user to describe what \"RAT G700\" stands for and what a \"build\" means (e.g., parts list, steps, firmware config), and store these answers as app metadata used only for labeling and help text.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-frontend-ui-to-manage-builds-list-view-search-filter-by-name-create-build-edit-build-delete-build-with-confirmation-and-a-build-detail-view-to-manage-its-items-add-edit-remove-quantities",
+      "title": "Create a frontend UI to manage Builds: list view (search/filter by name), create build, edit build, delete build (with confirmation), and a build detail view to manage its Items (add/edit/remove, quantities).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-export-import-utilities-for-builds-allow-exporting-a-build-to-a-downloadable-json-file-and-importing-a-json-file-to-create-a-new-build-validate-imported-json-and-show-validation-errors-without-crashing",
+      "title": "Add export/import utilities for Builds: allow exporting a Build to a downloadable JSON file and importing a JSON file to create a new Build. Validate imported JSON and show validation errors without crashing.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-internet-identity-sign-in-and-scope-data-per-authenticated-principal-so-each-user-only-sees-their-own-builds",
+      "title": "Integrate Internet Identity sign-in and scope data per authenticated principal so each user only sees their own Builds.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinctive-visual-theme-for-the-app-not-blue-purple-choose-a-consistent-palette-typography-and-layout-style-appropriate-for-a-build-configuration-tool-and-apply-it-across-pages-and-components",
+      "title": "Apply a coherent, distinctive visual theme for the app (not blue/purple): choose a consistent palette, typography, and layout style appropriate for a build/configuration tool, and apply it across pages and components.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-simple-in-app-help-about-page-that-explains-what-the-app-does-based-on-the-stored-metadata-from-setup-and-includes-a-clear-statement-that-the-app-is-not-a-remote-access-tool-and-does-not-control-devices",
+      "title": "Add a simple in-app Help/About page that explains what the app does based on the stored metadata from setup, and includes a clear statement that the app is not a remote-access tool and does not control devices.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-complete-runnable-full-stack-codebase-frontend-and-motoko-backend-wired-together-with-react-query-for-data-fetching-mutations-and-basic-developer-documentation-on-how-to-run-locally-and-deploy-on-the-internet-computer",
+      "title": "Provide a complete, runnable full-stack codebase: frontend and Motoko backend wired together with React Query for data fetching/mutations, and basic developer documentation on how to run locally and deploy on the Internet Computer.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create the \"rat g700\" rat-type build tool/application and provide full source code.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Implement core data model and backend APIs for managing \"Builds\" and their \"Items\". A Build must support: id, name, description/notes, createdAt, updatedAt, and a list of Items. Each Item must support: id, label/name, quantity (number), and optional fields for cost and notes.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "rat g700",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

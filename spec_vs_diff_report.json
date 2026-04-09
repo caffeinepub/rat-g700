@@ -1,0 +1,83 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T15:15:54.226Z",
+  "summary": "Diff adds a Motoko backend actor with per-principal storage, plus a React + TanStack Router/React Query frontend implementing authentication gating, first-run setup metadata, builds/items CRUD UI, and JSON import/export utilities. Some BuildRequest requirements are either not evidenced (due to truncation) or appear partially implemented.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "First-run setup must ask for app meaning/description, what a build represents, and preferred units/currency (optional), and persist all answers as metadata.",
+      "reason": "The first-run setup UI and backend metadata type only include description and definitionBuild; there is no evidence of units/currency being collected or stored.",
+      "evidence": [
+        "frontend/src/pages/FirstRunSetupPage.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Backend methods return Result-style responses (success/error) with user-friendly error strings for common failures (missing id, invalid quantity, etc.).",
+      "reason": "The backend code shown uses traps for authorization and returns plain values (e.g., createBuild returns Nat) rather than Result-style responses; no Result type or structured error returns are evidenced in the visible backend snippet.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Provide developer documentation (README or equivalent) with steps to run locally (dfx start/deploy) and deploy on the Internet Computer.",
+      "reason": "No README or documentation file is present in the provided diff summary (only code files are shown).",
+      "evidence": [
+        "<file-diff>: Added files list (no README shown)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Custom access-control/authorization system with admin token initialization via URL secret parameter and permission checks around profile/metadata/build operations.",
+      "reason": "BuildRequest only requires Internet Identity authentication and per-principal data scoping; it does not request an additional admin-token-based access control layer or URL-secret initialization.",
+      "evidence": [
+        "backend/main.mo (imports authorization/MixinAuthorization and authorization/access-control; uses AccessControl.hasPermission/isAdmin; includes MixinAuthorization)",
+        "frontend/src/hooks/useActor.ts (getSecretParameter('caffeineAdminToken'); calls actor._initializeAccessControlWithSecret(adminToken))"
+      ]
+    },
+    {
+      "description": "User profile feature requiring users to set a display name before first-run metadata setup.",
+      "reason": "BuildRequest does not require collecting/storing a user profile name as a prerequisite flow; only first-run app metadata (meaning/build definition/units) was requested.",
+      "evidence": [
+        "backend/main.mo (UserProfile type; getCallerUserProfile/getUserProfile/saveCallerUserProfile)",
+        "frontend/src/components/ProfileSetupDialog.tsx",
+        "frontend/src/App.tsx (ProfileSetupDialog gating before FirstRunSetupPage)"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/README.md",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AppShell.tsx",
+    "frontend/src/components/AuthGate.tsx",
+    "frontend/src/components/BuildEditorDialog.tsx",
+    "frontend/src/components/BuildImportExportPanel.tsx",
+    "frontend/src/components/ConfirmDestructiveDialog.tsx",
+    "frontend/src/components/ItemEditorDialog.tsx",
+    "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/ProfileSetupDialog.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/BuildDetailPage.tsx",
+    "frontend/src/pages/BuildsPage.tsx",
+    "frontend/src/pages/FirstRunSetupPage.tsx",
+    "frontend/src/pages/HelpAboutPage.tsx",
+    "frontend/src/utils/buildImportExport.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, authentication flow, profile setup gating, and first-run metadata setup routing.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including user profiles, metadata, builds, and items with proper cache invalidation.",
+  "frontend/src/components/AuthGate.tsx": "Authentication gate component that blocks unauthenticated users and displays a sign-in prompt with app branding (fixed Tailwind CSS v3 class name).",
+  "frontend/src/components/LoginButton.tsx": "Reusable login/logout button component with loading states and query cache clearing on logout.",
+  "frontend/src/components/ProfileSetupDialog.tsx": "Modal dialog for first-time user profile setup that prompts for user name after initial authentication.",
+  "frontend/src/components/AppShell.tsx": "Application shell layout with header navigation, logo, metadata display, user profile, and footer.",
+  "frontend/src/pages/FirstRunSetupPage.tsx": "First-run setup page that collects app description and build definition metadata with explicit non-malware statement.",
+  "frontend/src/pages/BuildsPage.tsx": "Main builds list page with search functionality, create build action, and grid display of all user builds.",
+  "frontend/src/pages/BuildDetailPage.tsx": "Build detail page showing build information, items table with cost calculations, and edit/delete actions (fixed React Hooks rules violation by calling useRemoveItem at component top level).",
+  "frontend/src/pages/HelpAboutPage.tsx": "Help and about page displaying metadata-driven content, security notice, features list, and getting started guide.",
+  "frontend/src/components/BuildEditorDialog.tsx": "Reusable dialog component for creating and editing builds with form validation.",
+  "frontend/src/components/ItemEditorDialog.tsx": "Reusable dialog component for adding and editing items within builds with quantity and cost fields.",
+  "frontend/src/components/ConfirmDestructiveDialog.tsx": "Reusable confirmation dialog for destructive actions like deleting builds or removing items.",
+  "frontend/src/components/BuildImportExportPanel.tsx": "Component providing build export to JSON and import from JSON with validation and error handling.",
+  "frontend/src/utils/buildImportExport.ts": "Utility functions for exporting builds to JSON files and importing/validating JSON build data with schema versioning.",
+  "frontend/src/index.css": "Global styles with graphite and amber OKLCH color theme for both light and dark modes, avoiding blue/purple palette.",
+  "frontend/README.md": "Developer documentation with setup instructions, feature overview, and explicit statement about the app's legitimate purpose."
+}

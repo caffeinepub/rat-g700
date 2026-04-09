@@ -1,0 +1,181 @@
+{
+  "kind": "build_request",
+  "title": "Create 'RAT G700' build tool app (safe, non-malicious) with full-stack CRUD and export",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Clarify and enforce that the application named \"RAT G700\" is a legitimate build/configuration tool and does not implement any remote access trojan (RAT), spyware, credential theft, persistence, covert control, or other malware behavior. In the UI, present a first-run configuration screen that asks the user to describe what \"RAT G700\" stands for and what a \"build\" means (e.g., parts list, steps, firmware config), and store these answers as app metadata used only for labeling and help text.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On first load (no existing metadata), the app shows a setup screen asking for: app meaning/description, what a build represents, and preferred units/currency (optional).",
+        "The setup answers are persisted in the Motoko canister and reused to label the UI (e.g., page title/help text).",
+        "No features that enable covert device control, remote shells, keylogging, credential capture, or persistence are implemented."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement core data model and backend APIs for managing \"Builds\" and their \"Items\". A Build must support: id, name, description/notes, createdAt, updatedAt, and a list of Items. Each Item must support: id, label/name, quantity (number), and optional fields for cost and notes.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes canister methods to create/read/update/delete Builds.",
+        "Backend exposes methods to add/update/remove Items within a Build.",
+        "All timestamps are set/updated consistently on create/update operations.",
+        "Backend methods return Result-style responses (success/error) with user-friendly error strings for common failures (missing id, invalid quantity, etc.)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create a frontend UI to manage Builds: list view (search/filter by name), create build, edit build, delete build (with confirmation), and a build detail view to manage its Items (add/edit/remove, quantities).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A Builds page shows all builds with a search box and a button to create a new build.",
+        "Selecting a build opens a detail view where Items can be added, edited inline or via modal, and removed with confirmation.",
+        "UI shows loading and error states for all backend interactions.",
+        "All user-facing text is in English."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add export/import utilities for Builds: allow exporting a Build to a downloadable JSON file and importing a JSON file to create a new Build. Validate imported JSON and show validation errors without crashing.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "From a Build detail view, user can click Export and download a .json file containing the Build and its Items.",
+        "User can import a .json file; if valid, a new Build is created in the backend; if invalid, UI shows specific validation errors.",
+        "Import/export format is stable and includes a version field (e.g., schemaVersion)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Integrate Internet Identity sign-in and scope data per authenticated principal so each user only sees their own Builds.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Unauthenticated users are prompted to sign in with Internet Identity to use the app.",
+        "After sign-in, Builds are stored and queried under the caller principal.",
+        "Signing out and signing in as another identity shows a different (isolated) dataset."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a coherent, distinctive visual theme for the app (not blue/purple): choose a consistent palette, typography, and layout style appropriate for a build/configuration tool, and apply it across pages and components.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme is consistently applied across navigation, forms, tables/lists, and dialogs.",
+        "Color palette avoids blue/purple as primary brand colors.",
+        "UI remains accessible (readable contrast, clear focus states)."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add a simple in-app Help/About page that explains what the app does based on the stored metadata from setup, and includes a clear statement that the app is not a remote-access tool and does not control devices.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Help/About page displays the user-provided app description from setup.",
+        "Help/About includes an explicit non-malware statement.",
+        "Page is reachable from main navigation."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Provide a complete, runnable full-stack codebase: frontend and Motoko backend wired together with React Query for data fetching/mutations, and basic developer documentation on how to run locally and deploy on the Internet Computer.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "rat g700 rat type builld tool all full code"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Frontend uses React Query for all canister data operations (queries + mutations) with cache invalidation.",
+        "A README (or equivalent) exists with steps to run locally (dfx start/deploy) and access the frontend.",
+        "App builds and runs without placeholder broken links or missing routes."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo).",
+    "Do not modify any files under frontend/src/components/ui or the immutable hook/entry paths specified by the platform; compose them from outside instead.",
+    "Use only Internet Identity for authentication (no third-party auth).",
+    "Do not implement any remote access trojan functionality or any features that enable malware behavior."
+  ],
+  "nonGoals": [
+    "Real-time collaboration or WebSocket-based live updates.",
+    "Third-party integrations (GitHub, Slack, etc.).",
+    "Native mobile app packaging.",
+    "Any device control, remote shell, keylogging, credential capture, persistence mechanisms, or obfuscation techniques."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimalist monochrome logo combining a gear and a rat silhouette (rat-g700-logo.dim_512x512.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

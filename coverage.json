@@ -1,0 +1,265 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T15:15:54.229Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 8,
+    "implemented": 7,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Clarify and enforce that the application named \"RAT G700\" is a legitimate build/configuration tool and does not implement any remote access trojan (RAT), spyware, credential theft, persistence, covert control, or other malware behavior. In the UI, present a first-run configuration screen that asks the user to describe what \"RAT G700\" stands for and what a \"build\" means (e.g., parts list, steps, firmware config), and store these answers as app metadata used only for labeling and help text.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useMetadata.ts",
+          "frontend/src/pages/FirstRunSetupPage.tsx",
+          "frontend/src/components/AppShell.tsx",
+          "frontend/index.html",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/FirstRunSetupPage.tsx",
+          "frontend/src/components/AppShell.tsx",
+          "frontend/index.html",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Implement core data model and backend APIs for managing \"Builds\" and their \"Items\". A Build must support: id, name, description/notes, createdAt, updatedAt, and a list of Items. Each Item must support: id, label/name, quantity (number), and optional fields for cost and notes.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Create a frontend UI to manage Builds: list view (search/filter by name), create build, edit build, delete build (with confirmation), and a build detail view to manage its Items (add/edit/remove, quantities).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useBuilds.ts",
+          "frontend/src/hooks/useBuild.ts",
+          "frontend/src/hooks/useItems.ts",
+          "frontend/src/pages/BuildsPage.tsx",
+          "frontend/src/pages/BuildDetailPage.tsx",
+          "frontend/src/components/BuildEditorDialog.tsx",
+          "frontend/src/components/ItemEditorDialog.tsx",
+          "frontend/src/components/ConfirmDestructiveDialog.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/BuildsPage.tsx",
+          "frontend/src/pages/BuildDetailPage.tsx",
+          "frontend/src/components/BuildEditorDialog.tsx",
+          "frontend/src/components/ItemEditorDialog.tsx",
+          "frontend/src/components/ConfirmDestructiveDialog.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Add export/import utilities for Builds: allow exporting a Build to a downloadable JSON file and importing a JSON file to create a new Build. Validate imported JSON and show validation errors without crashing.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/buildImportExport.ts",
+          "frontend/src/components/BuildImportExportPanel.tsx",
+          "frontend/src/pages/BuildDetailPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/buildImportExport.ts",
+          "frontend/src/components/BuildImportExportPanel.tsx",
+          "frontend/src/pages/BuildDetailPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Integrate Internet Identity sign-in and scope data per authenticated principal so each user only sees their own Builds.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useUserProfile.ts",
+          "frontend/src/components/LoginButton.tsx",
+          "frontend/src/components/ProfileSetupDialog.tsx",
+          "frontend/src/components/AuthGate.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/LoginButton.tsx",
+          "frontend/src/components/ProfileSetupDialog.tsx",
+          "frontend/src/components/AuthGate.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Apply a coherent, distinctive visual theme for the app (not blue/purple): choose a consistent palette, typography, and layout style appropriate for a build/configuration tool, and apply it across pages and components.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/AppShell.tsx",
+          "frontend/src/pages/BuildsPage.tsx",
+          "frontend/src/pages/BuildDetailPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/AppShell.tsx",
+          "frontend/src/pages/BuildsPage.tsx",
+          "frontend/src/pages/BuildDetailPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Add a simple in-app Help/About page that explains what the app does based on the stored metadata from setup, and includes a clear statement that the app is not a remote-access tool and does not control devices.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/HelpAboutPage.tsx",
+          "frontend/src/components/AppShell.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/HelpAboutPage.tsx",
+          "frontend/src/components/AppShell.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Provide a complete, runnable full-stack codebase: frontend and Motoko backend wired together with React Query for data fetching/mutations, and basic developer documentation on how to run locally and deploy on the Internet Computer.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/main.tsx",
+          "frontend/src/App.tsx",
+          "frontend/README.md",
+          "frontend/public/assets/generated/rat-g700-logo.dim_512x512.png"
+        ],
+        "matchedFiles": [
+          "frontend/src/main.tsx",
+          "frontend/src/App.tsx",
+          "frontend/README.md",
+          "frontend/public/assets/generated/rat-g700-logo.dim_512x512.png"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/authorization/MixinAuthorization.mo",
+    "backend/authorization/access-control.mo",
+    "backend/main.mo",
+    "build-request.json",
+    "build-template/Dockerfile",
+    "build-template/LICENSE",
+    "build-template/README.md",
+    "build-template/deploy.sh",
+    "build-template/icp.yaml",
+    "build-template/package.json",
+    "build-template/pnpm-lock.yaml",
+    "build-template/pnpm-workspace.yaml",
+    "build-template/scripts/prune-unused-images.js",
+    "build-template/scripts/resize-images.js",
+    "build-template/src/backend/canister.yaml",
+    "build-template/src/backend/system-idl/aaaaa-aa.did",
+    "build-template/src/frontend/canister.yaml",
+    "build-template/src/frontend/components.json",
+    "build-template/src/frontend/env.json",
+    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
+    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
+    "build-template/src/frontend/eslint.config.js",
+    "build-template/src/frontend/package.json",
+    "build-template/src/frontend/postcss.config.js",
+    "build-template/src/frontend/src/components/ui/accordion.tsx",
+    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
+    "build-template/src/frontend/src/components/ui/alert.tsx",
+    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
+    "build-template/src/frontend/src/components/ui/avatar.tsx",
+    "build-template/src/frontend/src/components/ui/badge.tsx",
+    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
+    "build-template/src/frontend/src/components/ui/button.tsx",
+    "build-template/src/frontend/src/components/ui/calendar.tsx",
+    "build-template/src/frontend/src/components/ui/card.tsx",
+    "build-template/src/frontend/src/components/ui/carousel.tsx",
+    "build-template/src/frontend/src/components/ui/chart.tsx",
+    "build-template/src/frontend/src/components/ui/checkbox.tsx",
+    "build-template/src/frontend/src/components/ui/collapsible.tsx",
+    "build-template/src/frontend/src/components/ui/command.tsx",
+    "build-template/src/frontend/src/components/ui/context-menu.tsx",
+    "build-template/src/frontend/src/components/ui/dialog.tsx",
+    "build-template/src/frontend/src/components/ui/drawer.tsx",
+    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
+    "build-template/src/frontend/src/components/ui/form.tsx",
+    "build-template/src/frontend/src/components/ui/hover-card.tsx",
+    "build-template/src/frontend/src/components/ui/input-otp.tsx",
+    "build-template/src/frontend/src/components/ui/input.tsx",
+    "build-template/src/frontend/src/components/ui/label.tsx",
+    "build-template/src/frontend/src/components/ui/menubar.tsx",
+    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
+    "build-template/src/frontend/src/components/ui/pagination.tsx",
+    "build-template/src/frontend/src/components/ui/popover.tsx",
+    "build-template/src/frontend/src/components/ui/progress.tsx",
+    "build-template/src/frontend/src/components/ui/radio-group.tsx",
+    "build-template/src/frontend/src/components/ui/resizable.tsx",
+    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
+    "build-template/src/frontend/src/components/ui/select.tsx",
+    "build-template/src/frontend/src/components/ui/separator.tsx",
+    "build-template/src/frontend/src/components/ui/sheet.tsx",
+    "build-template/src/frontend/src/components/ui/sidebar.tsx",
+    "build-template/src/frontend/src/components/ui/skeleton.tsx",
+    "build-template/src/frontend/src/components/ui/slider.tsx",
+    "build-template/src/frontend/src/components/ui/sonner.tsx",
+    "build-template/src/frontend/src/components/ui/switch.tsx",
+    "build-template/src/frontend/src/components/ui/table.tsx",
+    "build-template/src/frontend/src/components/ui/tabs.tsx",
+    "build-template/src/frontend/src/components/ui/textarea.tsx",
+    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
+    "build-template/src/frontend/src/components/ui/toggle.tsx",
+    "build-template/src/frontend/src/components/ui/tooltip.tsx",
+    "build-template/src/frontend/src/hooks/use-mobile.tsx",
+    "build-template/src/frontend/src/lib/utils.ts",
+    "build-template/src/frontend/tsconfig.json",
+    "build-template/src/frontend/vite.config.js",
+    "build-template/tsconfig.json",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/README.md",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/public/assets/generated/rat-g700-logo.dim_512x512.png",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/AppShell.tsx",
+    "frontend/src/components/AuthGate.tsx",
+    "frontend/src/components/BuildEditorDialog.tsx",
+    "frontend/src/components/BuildImportExportPanel.tsx",
+    "frontend/src/components/ConfirmDestructiveDialog.tsx",
+    "frontend/src/components/ItemEditorDialog.tsx",
+    "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/ProfileSetupDialog.tsx",
+    "frontend/src/config.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/BuildDetailPage.tsx",
+    "frontend/src/pages/BuildsPage.tsx",
+    "frontend/src/pages/FirstRunSetupPage.tsx",
+    "frontend/src/pages/HelpAboutPage.tsx",
+    "frontend/src/ui-summary.json",
+    "frontend/src/utils/StorageClient.ts",
+    "frontend/src/utils/buildImportExport.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
